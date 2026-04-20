@@ -185,6 +185,48 @@ int commit_create(const char *message, ObjectID *commit_id_out) {
 
 // ─── CLI Commands ────────────────────────────────────────────────────────────
 
+static void print_commit_cb(const ObjectID *id, const Commit *c, void *ctx) {
+    (void)ctx;
+    char hex[HASH_HEX_SIZE + 1];
+    hash_to_hex(id, hex);
+
+    time_t ts = (time_t)c->timestamp;
+    char tbuf[64];
+    struct tm *tm = gmtime(&ts);
+    strftime(tbuf, sizeof(tbuf), "%Y-%m-%d %H:%M:%S UTC", tm);
+
+    printf("commit %s\n", hex);
+    printf("Author: %s\n", c->author);
+    printf("Date:   %s\n", tbuf);
+    printf("\n    %s\n\n", c->message);
+}
+
+void cmd_commit(int argc, char *argv[]) {
+    const char *message = NULL;
+    for (int i = 2; i < argc - 1; i++)
+        if (strcmp(argv[i], "-m") == 0) { message = argv[i + 1]; break; }
+
+    if (!message) {
+        fprintf(stderr, "error: commit requires a message (-m \"message\")\n");
+        return;
+    }
+
+    ObjectID id;
+    if (commit_create(message, &id) != 0) {
+        fprintf(stderr, "error: commit failed\n");
+        return;
+    }
+
+    char hex[HASH_HEX_SIZE + 1];
+    hash_to_hex(&id, hex);
+    hex[12] = '\0';
+    printf("Committed: %s... %s\n", hex, message);
+}
+
+void cmd_log(void) {
+    if (commit_walk(print_commit_cb, NULL) != 0)
+        fprintf(stderr, "error: no commits yet (or repository not initialised)\n");
+}
 
 // ─── Phase 5 Stubs (analysis-only — replace when implementing Phase 5) ──────
 
@@ -192,4 +234,3 @@ void branch_list(void)                { printf("(branch: not yet implemented)\n"
 int  branch_create(const char *name)  { (void)name;   return -1; }
 int  branch_delete(const char *name)  { (void)name;   return -1; }
 int  checkout(const char *target)     { (void)target; return -1; }
-// commit implementation complete
