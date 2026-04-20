@@ -594,6 +594,43 @@ The following questions cover filesystem concepts beyond the implementation scop
 * **Best Practices:** We highly prefer more than 5 detailed commits per phase. Granular commits that clearly show the delta in code block changes allow us to verify your step-by-step understanding of the concepts and prevent penalties <3
 
 ---
+---
+
+## Lab Report — Screenshots
+
+### Phase 1: Object Storage
+**Screenshot 1A** — test_objects passing  
+![1A](screenshots/1A_test_objects.jpeg)
+
+**Screenshot 1B** — Sharded object directory  
+![1B](screenshots/1B_find_objects.jpeg)
+
+### Phase 2: Tree Objects
+**Screenshot 2A** — test_tree passing  
+![2A](screenshots/2A_test_tree.jpeg)
+
+**Screenshot 2B** — xxd binary output  
+![2B](screenshots/2B_xxd_binary.jpeg)
+
+### Phase 3: Index / Staging Area
+**Screenshot 3A** — pes status output  
+![3A](screenshots/3A_pes_status.jpeg)
+
+**Screenshot 3B** — cat .pes/index  
+![3B](screenshots/3B_cat_index.jpeg)
+
+### Phase 4: Commits and History
+**Screenshot 4A** — pes log  
+![4A](screenshots/4A_pes_log.jpeg)
+
+**Screenshot 4B** — find .pes -type f  
+![4B](screenshots/4B_find_pes.jpeg)
+
+**Screenshot 4C** — HEAD and refs  
+![4C](screenshots/4C_head_refs.jpeg)
+
+### Final: Integration Test
+![Final](screenshots/Final_integration.jpeg)
 
 ## Further Reading
 
