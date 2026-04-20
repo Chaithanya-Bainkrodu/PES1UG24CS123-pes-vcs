@@ -97,7 +97,7 @@ int object_write(ObjectType type, const void *data, size_t len, ObjectID *id_out
     object_path(&id, final_path, sizeof(final_path));
     snprintf(tmp_path, sizeof(tmp_path), "%s.tmp", final_path);
 
-    int fd = open(tmp_path, O_CREAT | O_WRONLY | O_TRUNC, 0444);
+    int fd = open(tmp_path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     if (fd < 0) { free(full); return -1; }
 
     ssize_t w = write(fd, full, full_len);

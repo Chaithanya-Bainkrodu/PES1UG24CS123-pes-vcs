@@ -191,35 +191,4 @@ int index_add(Index *index, const char *path) {
     return index_save(index);
 }
 
-// ─── CLI Commands ────────────────────────────────────────────────────────────
 
-void cmd_init(void) {
-    mkdir(PES_DIR, 0755);
-    mkdir(OBJECTS_DIR, 0755);
-    char refs[64];
-    snprintf(refs, sizeof(refs), "%s/refs", PES_DIR);
-    mkdir(refs, 0755);
-    mkdir(REFS_DIR, 0755);
-
-    FILE *f = fopen(HEAD_FILE, "w");
-    if (!f) { perror("error: cannot create HEAD"); return; }
-    fprintf(f, "ref: refs/heads/main\n");
-    fclose(f);
-
-    printf("Initialised empty PES repository in .pes/\n");
-}
-
-void cmd_add(int argc, char *argv[]) {
-    if (argc < 3) { fprintf(stderr, "Usage: pes add <file>...\n"); return; }
-    Index index;
-    if (index_load(&index) != 0) { fprintf(stderr, "error: failed to load index\n"); return; }
-    for (int i = 2; i < argc; i++)
-        if (index_add(&index, argv[i]) != 0)
-            fprintf(stderr, "error: failed to stage '%s'\n", argv[i]);
-}
-
-void cmd_status(void) {
-    Index index;
-    if (index_load(&index) != 0) { fprintf(stderr, "error: failed to load index\n"); return; }
-    index_status(&index);
-}
