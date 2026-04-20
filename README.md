@@ -630,7 +630,11 @@ The following questions cover filesystem concepts beyond the implementation scop
 ![4C](screenshots/4C_head_refs.jpeg)
 
 ### Final: Integration Test
-![Final](screenshots/Final_integration.jpeg)
+**Part 1:**
+![Final Part 1](screenshots/Final_integration.jpeg)
+
+**Part 2:**
+![Final Part 2](screenshots/Final_integration_part2.jpeg)
 
 ## Further Reading
 
